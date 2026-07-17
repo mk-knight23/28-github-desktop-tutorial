@@ -77,15 +77,15 @@ interface GitFlowDB extends DBSchema {
   aiResults: { key: string; value: AiResultRecord; indexes: { "by-at": number } };
 }
 
-type StoreName = keyof GitFlowDB;
-
-const ALL_STORES: StoreName[] = [
+const ALL_STORES = [
   "quizAttempts",
   "tutorialProgress",
   "simulatorSessions",
   "analyses",
   "aiResults",
-];
+] as const;
+
+type StoreName = (typeof ALL_STORES)[number];
 
 /* --------------------------------- helpers ------------------------------- */
 
