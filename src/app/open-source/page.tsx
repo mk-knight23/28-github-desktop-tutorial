@@ -54,7 +54,7 @@ export default function OpenSourcePage() {
       />
 
       <article className="prose-doc mt-10">
-        <h2>How it's built</h2>
+        <h2>How it&rsquo;s built</h2>
         <p>
           MK GitFlow is a Next.js App Router application written in TypeScript, styled with
           Tailwind, and tested with Vitest. It&rsquo;s local-first: there&rsquo;s no server database, and all

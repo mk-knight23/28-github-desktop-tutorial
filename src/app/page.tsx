@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   GitBranch,
@@ -13,7 +14,13 @@ import {
 } from "lucide-react";
 import { GraphCanvas } from "@/components/simulator/graph-canvas";
 import { CommandLine, TerminalPanel } from "@/components/ui/terminal-panel";
+import { JsonLd } from "@/components/seo/json-ld";
+import { webApplicationLd } from "@/lib/jsonld";
 import { applyCommand, initialState, type GitState } from "@/lib/git-engine";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 /** Seed a small branch-and-merge graph for the hero teaser (pure, deterministic). */
 function demoState(): GitState {
@@ -119,6 +126,7 @@ export default function Home() {
 
   return (
     <div>
+      <JsonLd data={webApplicationLd()} />
       {/* Hero */}
       <section className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:py-24">
         <div>
