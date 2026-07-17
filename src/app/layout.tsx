@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { SiteNav } from "@/components/shell/site-nav";
 import { SiteFooter } from "@/components/shell/site-footer";
+import { ConsentBanner } from "@/components/shell/consent-banner";
 import { CREATOR, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -55,6 +56,7 @@ export default function RootLayout({
           {children}
         </main>
         <SiteFooter />
+        <ConsentBanner />
       </body>
     </html>
   );
