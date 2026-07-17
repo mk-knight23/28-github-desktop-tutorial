@@ -140,6 +140,21 @@ export function newId(): string {
   return `id-${Date.now()}-${Math.floor(Math.random() * 1e9).toString(36)}`;
 }
 
+/**
+ * A strictly-increasing wall-clock timestamp. `Date.now()` can return the same
+ * millisecond for records written back-to-back; when that happens the `by-at`
+ * IndexedDB index falls back to primary-key (random UUID) order, so a plain
+ * `.reverse()` would not reliably surface the newest record first. Bumping by a
+ * millisecond on collision keeps every record's `at` unique and monotonic within
+ * a session, which makes the reversed-index lists deterministic.
+ */
+let lastTimestamp = 0;
+export function monotonicNow(): number {
+  const now = Date.now();
+  lastTimestamp = now > lastTimestamp ? now : lastTimestamp + 1;
+  return lastTimestamp;
+}
+
 /* ------------------------------ quiz attempts ---------------------------- */
 
 /** Records an attempt unless history logging is off. Returns the stored id or null. */
@@ -147,7 +162,7 @@ export async function recordQuizAttempt(
   attempt: Omit<QuizAttempt, "id" | "at">,
 ): Promise<string | null> {
   if (!isBrowser() || isHistoryDisabled()) return null;
-  const record: QuizAttempt = { ...attempt, id: newId(), at: Date.now() };
+  const record: QuizAttempt = { ...attempt, id: newId(), at: monotonicNow() };
   const db = await getDB();
   await db.put("quizAttempts", record);
   return record.id;
@@ -181,7 +196,7 @@ export async function saveTutorialProgress(
 ): Promise<void> {
   if (!isBrowser()) return;
   const db = await getDB();
-  await db.put("tutorialProgress", { ...progress, updatedAt: Date.now() });
+  await db.put("tutorialProgress", { ...progress, updatedAt: monotonicNow() });
 }
 
 /* -------------------------- simulator sessions --------------------------- */
@@ -192,7 +207,7 @@ export async function saveSimulatorSession(
     createdAt?: number;
   },
 ): Promise<string> {
-  const now = Date.now();
+  const now = monotonicNow();
   const id = session.id ?? newId();
   const record: SimulatorSession = {
     id,
@@ -226,7 +241,7 @@ export async function deleteSimulatorSession(id: string): Promise<void> {
 export async function cacheAnalysis(record: Omit<AnalysisRecord, "at">): Promise<void> {
   if (!isBrowser() || isHistoryDisabled()) return;
   const db = await getDB();
-  await db.put("analyses", { ...record, at: Date.now() });
+  await db.put("analyses", { ...record, at: monotonicNow() });
 }
 
 export async function getCachedAnalysis(slug: string): Promise<AnalysisRecord | undefined> {
@@ -248,7 +263,7 @@ export async function recordAiResult(
   record: Omit<AiResultRecord, "id" | "at">,
 ): Promise<string | null> {
   if (!isBrowser() || isHistoryDisabled()) return null;
-  const stored: AiResultRecord = { ...record, id: newId(), at: Date.now() };
+  const stored: AiResultRecord = { ...record, id: newId(), at: monotonicNow() };
   const db = await getDB();
   await db.put("aiResults", stored);
   return stored.id;
