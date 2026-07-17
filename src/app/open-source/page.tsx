@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Github, Scale, GitPullRequest, Bug } from "lucide-react";
+import { Scale, GitPullRequest, Bug } from "lucide-react";
+import { GithubIcon } from "@/components/shell/icons";
 import { PageHeader } from "@/components/ui/page-header";
 import { Breadcrumb } from "@/components/content/breadcrumb";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -100,7 +101,7 @@ export default function OpenSourcePage() {
                 rel="noopener noreferrer"
                 className="inline-flex shrink-0 items-center gap-2 self-start rounded-sm border border-border-strong bg-surface px-4 py-2 text-sm font-medium text-fg transition-colors duration-(--motion-fast) hover:bg-surface-raised sm:self-center"
               >
-                <Github size={16} aria-hidden="true" />
+                <GithubIcon size={16} />
                 {way.cta}
               </a>
             </div>

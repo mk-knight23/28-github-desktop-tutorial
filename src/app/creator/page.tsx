@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Github, Globe, GitFork, Mail } from "lucide-react";
+import { Globe, GitFork, Mail } from "lucide-react";
+import { GithubIcon } from "@/components/shell/icons";
 import { PageHeader } from "@/components/ui/page-header";
 import { Breadcrumb } from "@/components/content/breadcrumb";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -15,7 +16,7 @@ export const metadata: Metadata = buildMetadata({
 });
 
 const LINKS = [
-  { href: CREATOR.github, label: "GitHub", handle: "@mk-knight23", icon: Github },
+  { href: CREATOR.github, label: "GitHub", handle: "@mk-knight23", icon: GithubIcon },
   { href: CREATOR.portfolio, label: "Portfolio", handle: "mkazi.live", icon: Globe },
   { href: CREATOR.repo, label: "This project's source", handle: "44-tool-github-desktop-guide", icon: GitFork },
   { href: `mailto:${CREATOR.email}`, label: "Email", handle: CREATOR.email, icon: Mail },
