@@ -42,7 +42,7 @@ function formatDate(iso: string | null): string {
 
 export function AnalyzerWorkspace() {
   const searchParams = useSearchParams();
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(() => searchParams.get("repo") ?? "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<AnalysisResult | null>(null);

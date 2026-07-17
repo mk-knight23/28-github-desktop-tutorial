@@ -107,13 +107,24 @@ export function SettingsPanel() {
   }, []);
 
   useEffect(() => {
-    setMounted(true);
-    setTheme(getThemePref());
-    setMotion(getMotionPref());
-    setConsentState(getConsent());
-    setHistoryOff(isHistoryDisabled());
-    void refreshUsage();
-  }, [refreshUsage]);
+    let active = true;
+    // Read browser-only prefs and storage after mount (async, so setState here
+    // is not a synchronous cascade) and gate initial render on a skeleton to
+    // avoid hydration mismatch against the SSR defaults.
+    (async () => {
+      const usage = await getStorageUsage();
+      if (!active) return;
+      setTheme(getThemePref());
+      setMotion(getMotionPref());
+      setConsentState(getConsent());
+      setHistoryOff(isHistoryDisabled());
+      setUsage(usage);
+      setMounted(true);
+    })();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const onTheme = (v: ThemePref) => {
     setTheme(v);

@@ -46,16 +46,14 @@ export function TutorialRunner({ tutorial }: TutorialRunnerProps) {
   };
 
   const toggle = (stepId: string) => {
-    setDone((prev) => {
-      const next = new Set(prev);
-      if (next.has(stepId)) next.delete(stepId);
-      else next.add(stepId);
-      persist(next);
-      if (next.size === tutorial.steps.length) {
-        track("tool_completed", { feature: "tutorial", tutorial: tutorial.id });
-      }
-      return next;
-    });
+    const next = new Set(done);
+    if (next.has(stepId)) next.delete(stepId);
+    else next.add(stepId);
+    setDone(next);
+    persist(next);
+    if (next.size === tutorial.steps.length) {
+      track("tool_completed", { feature: "tutorial", tutorial: tutorial.id });
+    }
   };
 
   const completed = done.size;
