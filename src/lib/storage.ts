@@ -176,7 +176,9 @@ export async function listTutorialProgress(): Promise<TutorialProgress[]> {
   return db.getAll("tutorialProgress");
 }
 
-export async function saveTutorialProgress(progress: TutorialProgress): Promise<void> {
+export async function saveTutorialProgress(
+  progress: Omit<TutorialProgress, "updatedAt">,
+): Promise<void> {
   if (!isBrowser()) return;
   const db = await getDB();
   await db.put("tutorialProgress", { ...progress, updatedAt: Date.now() });

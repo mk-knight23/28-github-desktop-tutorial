@@ -6,7 +6,6 @@ import { CommandLine, TerminalPanel } from "@/components/ui/terminal-panel";
 import { getScenario, UNDO_SCENARIOS } from "@/lib/data/undo-scenarios";
 import { getCommand } from "@/lib/data/reference";
 import { buildMetadata } from "@/lib/seo";
-import { SITE_URL } from "@/lib/site";
 
 interface PageProps {
   params: Promise<{ slug: string }>;

@@ -108,9 +108,11 @@ export function AnalyzerWorkspace() {
     if (ran.current) return;
     const repo = searchParams.get("repo");
     if (repo) {
+      // `input` is already initialized from ?repo= (see useState above). Defer
+      // the run to a microtask so its internal setState calls don't fire
+      // synchronously within this effect (avoids a cascading mount render).
       ran.current = true;
-      setInput(repo);
-      void run(repo);
+      void Promise.resolve().then(() => run(repo));
     }
   }, [searchParams, run]);
 

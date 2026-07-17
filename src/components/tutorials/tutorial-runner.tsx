@@ -41,7 +41,6 @@ export function TutorialRunner({ tutorial }: TutorialRunnerProps) {
       title: tutorial.title,
       completedSteps: [...nextDone],
       totalSteps: tutorial.steps.length,
-      updatedAt: Date.now(),
     });
   };
 
