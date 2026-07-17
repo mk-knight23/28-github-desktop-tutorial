@@ -28,7 +28,7 @@ const trimmedText = (max: number, label: string) =>
   z
     .string()
     .trim()
-    .min(1, `Enter some ${label} first.`)
+    .min(1, `Enter ${label} first.`)
     .max(max, `Keep ${label} under ${max.toLocaleString()} characters.`);
 
 export const nlToCommandInput = z.object({

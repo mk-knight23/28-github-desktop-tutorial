@@ -75,15 +75,6 @@ export async function handleAiRequest(
     return errorResponse(slug, "invalid-input", "That input is too large. Please shorten it.");
   }
 
-  const byokKey = request.headers.get("x-byok-key")?.trim() || undefined;
-  if (!byokKey && !serverGatewayAvailable()) {
-    return errorResponse(
-      slug,
-      "unavailable",
-      "AI is not configured on this instance. Add your own key in Settings, or use the deterministic tools.",
-    );
-  }
-
   let rawBody: unknown;
   try {
     rawBody = await request.json();
@@ -95,6 +86,17 @@ export async function handleAiRequest(
   if (!parsed.success) {
     const message = parsed.error.issues[0]?.message ?? "The input didn't pass validation.";
     return errorResponse(slug, "invalid-input", message);
+  }
+
+  // Availability/auth is checked after validation so a malformed request still
+  // gets a precise 400 (STANDARDS §10: validate input first).
+  const byokKey = request.headers.get("x-byok-key")?.trim() || undefined;
+  if (!byokKey && !serverGatewayAvailable()) {
+    return errorResponse(
+      slug,
+      "unavailable",
+      "AI is not configured on this instance. Add your own key in Settings, or use the deterministic tools.",
+    );
   }
 
   const meta = getCapability(slug);
