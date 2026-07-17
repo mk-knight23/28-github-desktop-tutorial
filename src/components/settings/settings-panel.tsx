@@ -7,9 +7,10 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Download, Upload, Trash2, Database } from "lucide-react";
+import { Download, Upload, Trash2, Database, KeyRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+import { getByokKey, setByokKey, clearByokKey } from "@/lib/ai/byok";
 import {
   applyMotionPref,
   applyThemePref,
@@ -100,6 +101,8 @@ export function SettingsPanel() {
   const [usage, setUsage] = useState<StorageUsage | null>(null);
   const [status, setStatus] = useState<string | null>(null);
   const [confirmClear, setConfirmClear] = useState(false);
+  const [byokKey, setByokKeyState] = useState("");
+  const [byokDraft, setByokDraft] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
 
   const refreshUsage = useCallback(async () => {
@@ -118,6 +121,9 @@ export function SettingsPanel() {
       setMotion(getMotionPref());
       setConsentState(getConsent());
       setHistoryOff(isHistoryDisabled());
+      const storedKey = getByokKey();
+      setByokKeyState(storedKey);
+      setByokDraft(storedKey);
       setUsage(usage);
       setMounted(true);
     })();
@@ -141,6 +147,19 @@ export function SettingsPanel() {
   const onHistory = (off: boolean) => {
     setHistoryOff(off);
     setHistoryDisabled(off);
+  };
+  const onSaveByok = () => {
+    setByokKey(byokDraft);
+    const stored = getByokKey();
+    setByokKeyState(stored);
+    setByokDraft(stored);
+    setStatus(stored ? "Saved your AI key in this browser." : "Cleared your AI key.");
+  };
+  const onClearByok = () => {
+    clearByokKey();
+    setByokKeyState("");
+    setByokDraft("");
+    setStatus("Cleared your AI key.");
   };
 
   const onExport = async () => {
@@ -257,6 +276,47 @@ export function SettingsPanel() {
             </span>
           </span>
         </label>
+      </div>
+
+      <div className={CARD}>
+        <div className="flex items-center gap-2">
+          <KeyRound size={18} className="text-fg-muted" aria-hidden="true" />
+          <span className="schematic-label text-fg-muted">YOUR AI KEY (BYOK)</span>
+        </div>
+        <p className="mt-2 text-sm text-fg-secondary">
+          The AI assistant works without any setup where a deterministic result exists, and shows an
+          honest &ldquo;AI unavailable&rdquo; state otherwise. To unlock the model-backed answers,
+          add your own Vercel AI Gateway key.
+        </p>
+        <p className="mt-2 text-xs text-fg-muted">
+          Your key is stored only in this browser and sent with each request in the{" "}
+          <code className="text-fg-secondary">x-byok-key</code> header. It is never logged, stored on
+          the server, or included in analytics.
+        </p>
+        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <input
+            type="password"
+            autoComplete="off"
+            value={byokDraft}
+            onChange={(e) => setByokDraft(e.target.value)}
+            placeholder="Vercel AI Gateway key"
+            aria-label="Your AI gateway key"
+            className="min-h-11 w-full rounded-sm border border-border-strong bg-surface px-3 font-mono text-sm text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:max-w-sm"
+          />
+          <div className="flex gap-2">
+            <Button variant="secondary" onClick={onSaveByok} disabled={byokDraft.trim() === byokKey}>
+              {byokKey && byokDraft.trim() === "" ? "Remove key" : "Save key"}
+            </Button>
+            {byokKey && (
+              <Button variant="ghost" onClick={onClearByok}>
+                Remove
+              </Button>
+            )}
+          </div>
+        </div>
+        <p className="mt-3 text-xs text-fg-muted">
+          {byokKey ? "A key is saved in this browser." : "No key saved. AI runs in degraded mode."}
+        </p>
       </div>
 
       <div className={CARD}>
