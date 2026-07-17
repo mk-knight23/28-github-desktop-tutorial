@@ -6,6 +6,9 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
     environment: "jsdom",
+    // A concrete origin so window.localStorage is available (opaque origins
+    // like about:blank disable web storage).
+    environmentOptions: { jsdom: { url: "http://localhost:3105" } },
     globals: true,
     setupFiles: ["./vitest.setup.ts"],
     include: ["src/**/*.{test,spec}.{ts,tsx}"],
