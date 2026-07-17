@@ -11,6 +11,14 @@ interface PageMetaInput {
   path: string;
 }
 
+/**
+ * Path of the build-time OG image (app/opengraph-image.tsx). Referenced
+ * explicitly because a page-level `openGraph` object shadows the automatic
+ * file-convention image; setting it here keeps every buildMetadata page carded.
+ * Resolved to an absolute URL by `metadataBase` in layout.tsx.
+ */
+const OG_IMAGE = "/opengraph-image";
+
 export function buildMetadata({ title, description, path }: PageMetaInput): Metadata {
   const fullTitle = `${title} · ${SITE_NAME}`;
   return {
@@ -23,11 +31,13 @@ export function buildMetadata({ title, description, path }: PageMetaInput): Meta
       url: path,
       title: fullTitle,
       description,
+      images: [OG_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description,
+      images: [OG_IMAGE],
     },
   };
 }
