@@ -16,7 +16,12 @@ export const CREATOR = {
   github: "https://github.com/mk-knight23",
   portfolio: "https://www.mkazi.live",
   repo: "https://github.com/mk-knight23/44-tool-github-desktop-guide",
+  email: "kazi@reprime.com",
 } as const;
+
+/** GitHub issue tracker for the project (primary support channel). */
+export const REPO_ISSUES = `${CREATOR.repo}/issues`;
+export const REPO_SECURITY = `${CREATOR.repo}/security/advisories/new`;
 
 /** Exact footer sentence per STANDARDS §3 — do not reword. */
 export const FOOTER_SENTENCE =
