@@ -1,0 +1,25 @@
+/* TEAM */
+  Creator: Kazi Musharraf
+  Role: AI Engineer, Full-Stack Developer, Open-Source Builder
+  GitHub: https://github.com/mk-knight23
+  Site: https://www.mkazi.live
+  Contact: kazi [at] reprime.com
+
+/* SITE */
+  Name: MK GitFlow
+  URL: https://gitflow.mkazi.live
+  Description: An interactive, local-first Git learning platform. It never
+    executes shell commands — it simulates them in the browser and displays
+    them with copy buttons.
+  License: MIT
+  Source: https://github.com/mk-knight23/44-tool-github-desktop-guide
+
+/* TECH */
+  Framework: Next.js (App Router), TypeScript
+  Styling: Tailwind CSS
+  Testing: Vitest, Playwright
+  Data: Local-first (IndexedDB), no server database
+  Hosting: Vercel
+
+/* THANKS */
+  To everyone learning Git the hard way — this is for you.

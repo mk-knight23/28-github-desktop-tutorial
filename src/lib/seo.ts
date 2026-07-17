@@ -25,7 +25,7 @@ export function buildMetadata({ title, description, path }: PageMetaInput): Meta
       description,
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: fullTitle,
       description,
     },

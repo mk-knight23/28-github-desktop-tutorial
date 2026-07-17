@@ -1,0 +1,44 @@
+# MK GitFlow
+
+> An interactive, local-first platform for learning and working with Git. It
+> lets you simulate Git commands on a visual branch graph before running them for
+> real, backed by guided tutorials, a risk-graded command reference, deterministic
+> utilities, an optional AI assistant, and a public repository analyzer.
+
+Core principle: the site NEVER executes shell or Git commands. The simulator runs
+a Git graph entirely in the browser's memory; every command shown elsewhere is
+display-and-copy only. It is local-first (no accounts, no server database) and open
+source under the MIT license.
+
+Author: Kazi Musharraf (https://www.mkazi.live, https://github.com/mk-knight23).
+
+Note on the name: "GitFlow" here is a brand for this learning platform, not the
+nvie GitFlow branching model. The product teaches Git mechanics so users can pick
+any workflow.
+
+## Tools
+
+- [Branch simulator](https://gitflow.mkazi.live/tool): in-memory Git graph engine (commit, branch, checkout, merge, rebase, reset) with an SVG graph, undo, and JSON export.
+- [Command reference](https://gitflow.mkazi.live/reference): 40+ commands, each labeled safe/caution/destructive with examples and undo guidance.
+- [.gitignore generator](https://gitflow.mkazi.live/gitignore): combine bundled templates into one deduplicated file, offline.
+- [Commit builder](https://gitflow.mkazi.live/commits): compose Conventional Commit messages with live validation.
+- [Undo helper](https://gitflow.mkazi.live/undo): match a mistake to a recovery recipe with risk-graded commands.
+- [Repo analyzer](https://gitflow.mkazi.live/analyzer): score a public GitHub repo's docs health from public data only.
+- [AI assistant](https://gitflow.mkazi.live/assistant): optional AI capabilities with honest availability states and deterministic fallbacks.
+
+## Learn
+
+- [Tutorials](https://gitflow.mkazi.live/tutorials): GitHub Desktop and command-line paths across three levels.
+- [Quizzes](https://gitflow.mkazi.live/quiz): topic quizzes with per-question explanations.
+- [Guides](https://gitflow.mkazi.live/guides): original long-form guides (reading the DAG, rebase vs merge, branching strategies, undoing anything, Conventional Commits, .gitignore, GitHub Desktop, CI triage).
+- [Use cases](https://gitflow.mkazi.live/use-cases): onboarding juniors, teaching in a bootcamp, PR hygiene, recovering from mistakes, auditing repo health.
+
+## About
+
+- [Docs](https://gitflow.mkazi.live/docs): how the product works.
+- [FAQ](https://gitflow.mkazi.live/faq)
+- [About](https://gitflow.mkazi.live/about)
+- [Creator](https://gitflow.mkazi.live/creator)
+- [Open source](https://gitflow.mkazi.live/open-source)
+- [Privacy](https://gitflow.mkazi.live/privacy)
+- [Terms](https://gitflow.mkazi.live/terms)

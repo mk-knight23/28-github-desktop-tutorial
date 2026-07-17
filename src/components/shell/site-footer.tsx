@@ -6,22 +6,34 @@ import { CREATOR, FOOTER_SENTENCE, SITE_NAME } from "@/lib/site";
 
 const LEARN_LINKS = [
   { href: "/tutorials", label: "Tutorials" },
-  { href: "/quiz", label: "Quizzes" },
+  { href: "/guides", label: "Guides" },
+  { href: "/use-cases", label: "Use cases" },
   { href: "/reference", label: "Command reference" },
-  { href: "/undo", label: "Undo helper" },
+  { href: "/quiz", label: "Quizzes" },
 ];
 
 const TOOL_LINKS = [
   { href: "/tool", label: "Branch simulator" },
   { href: "/gitignore", label: ".gitignore generator" },
   { href: "/commits", label: "Commit builder" },
+  { href: "/undo", label: "Undo helper" },
   { href: "/analyzer", label: "Repo analyzer" },
 ];
 
-const LOCAL_LINKS = [
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/history", label: "History" },
-  { href: "/settings", label: "Settings" },
+const PROJECT_LINKS = [
+  { href: "/about", label: "About" },
+  { href: "/docs", label: "Docs" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/changelog", label: "Changelog" },
+  { href: "/creator", label: "Creator" },
+  { href: "/open-source", label: "Open source" },
+  { href: "/contact", label: "Contact" },
+];
+
+const LEGAL_LINKS = [
+  { href: "/privacy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
+  { href: "/cookies", label: "Cookies" },
 ];
 
 export function SiteFooter() {
@@ -72,10 +84,10 @@ export function SiteFooter() {
           </ul>
         </nav>
 
-        <nav aria-label="Your data">
-          <h2 className="schematic-label mb-4 text-fg-muted">Your data</h2>
+        <nav aria-label="Project">
+          <h2 className="schematic-label mb-4 text-fg-muted">Project</h2>
           <ul className="space-y-2">
-            {LOCAL_LINKS.map((link) => (
+            {PROJECT_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
@@ -86,13 +98,24 @@ export function SiteFooter() {
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-xs leading-relaxed text-fg-muted">
-            All progress and results stay in your browser. Nothing is uploaded.
-          </p>
         </nav>
       </div>
 
       <div className="border-t border-border">
+        <nav
+          aria-label="Legal"
+          className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-5 gap-y-2 px-4 pt-6 sm:px-6"
+        >
+          {LEGAL_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-xs text-fg-muted transition-colors duration-(--motion-fast) hover:text-fg"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p className="text-sm text-fg-secondary">{FOOTER_SENTENCE}</p>
           <ul className="flex items-center gap-4">

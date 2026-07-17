@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `${SITE_NAME} — Interactive Git Simulator & Learning Platform`,
     description: SITE_DESCRIPTION,
   },
