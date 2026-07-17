@@ -74,6 +74,26 @@ function Body() {
         <CommandLine command="git revert <commit-sha>" risk="safe" feature="guide:undo-anything" />
       </TerminalPanel>
 
+      <h2>Undo a merge</h2>
+      <p>
+        You merged a branch and immediately regretted it. If you haven&rsquo;t pushed, the cleanest
+        fix is to move the branch back to where it was before the merge. Git records that spot as{" "}
+        <code>ORIG_HEAD</code> right after a merge, so you rarely need to look up the SHA yourself.
+      </p>
+      <TerminalPanel>
+        <CommandLine command="git reset --merge ORIG_HEAD" risk="destructive" consequence="Rewinds the branch to before the merge and discards the merge result. Make a backup branch first." saferAlternative="git branch backup-before-undo" feature="guide:undo-anything" />
+      </TerminalPanel>
+      <p>
+        If the merge is <em>already pushed</em>, don&rsquo;t rewind shared history. Revert it instead,
+        but a merge has two parents, so you must tell Git which one to keep with <code>-m 1</code>{" "}
+        (the branch you merged into). Reverting a merge is subtle — re-merging that branch later
+        won&rsquo;t bring the changes back cleanly — so read the note in the reference before you rely
+        on it.
+      </p>
+      <TerminalPanel>
+        <CommandLine command="git revert -m 1 <merge-sha>" risk="caution" feature="guide:undo-anything" />
+      </TerminalPanel>
+
       <h2>Recover commits after a bad reset</h2>
       <p>
         You ran <code>reset --hard</code> and your commits vanished. They&rsquo;re almost certainly

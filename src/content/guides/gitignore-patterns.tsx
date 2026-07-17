@@ -75,6 +75,25 @@ function Body() {
         ignores first and your specific exceptions after them.
       </p>
 
+      <h2>Debugging: ask Git why</h2>
+      <p>
+        When a file is behaving unexpectedly, don&rsquo;t guess which rule is responsible — ask.{" "}
+        <code>git check-ignore -v</code> prints the exact file and line number of the pattern that
+        matches, so you can see whether the culprit is your repo&rsquo;s <code>.gitignore</code>, a
+        nested one, or your global excludes file.
+      </p>
+      <TerminalPanel>
+        <CommandLine command="git check-ignore -v build/app.js" risk="safe" feature="guide:gitignore" />
+      </TerminalPanel>
+      <p>
+        If it prints nothing, the file isn&rsquo;t ignored by any rule — which usually means it&rsquo;s
+        already tracked (Gotcha 1) or a negation rule re-included it. To see the full picture,{" "}
+        <code>git status --ignored</code> lists ignored files alongside your normal status, and{" "}
+        <code>git ls-files --others --ignored --exclude-standard</code> prints only the ignored,
+        untracked files. Between those three, you can always answer &ldquo;is this ignored, and by
+        what?&rdquo; without trial and error.
+      </p>
+
       <h2>Where the file lives</h2>
       <p>
         You can have a <code>.gitignore</code> in any directory; rules apply to that directory
