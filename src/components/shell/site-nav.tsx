@@ -16,6 +16,7 @@ interface NavLink {
 
 const PRIMARY_LINKS: NavLink[] = [
   { href: "/tool", label: "Simulator" },
+  { href: "/assistant", label: "Assistant" },
   { href: "/tutorials", label: "Tutorials" },
   { href: "/quiz", label: "Quiz" },
   { href: "/reference", label: "Reference" },
