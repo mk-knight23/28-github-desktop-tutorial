@@ -7,6 +7,15 @@ sync via `src/content/changelog.ts`).
 The format is loosely based on [Keep a Changelog](https://keepachangelog.com/), and the
 project aims to follow semantic versioning.
 
+## [2.1.0] — 2026-07-18
+
+### Focused Product Transformation
+- **Homepage Integration**: Embedded the visual `SimulatorWorkspace` directly on the homepage.
+- **Prepopulated Repository Tree**: Automatically initialized the simulator workspace with a pre-seeded set of 2 branches (`main`, `feature/auth`) and multiple commits on mount, offering a rich graphical visualization on first visit.
+- **Basic Mode Layout**: Simplified default view displaying only standard git action buttons: Commit, Branch, and Switch/Merge dropdowns.
+- **Collapsible Settings drawer**: Grouped raw command terminals, rebase inputs, reset actions, and import/export under Settings.
+- **Site Navigation**: Routed the Simulator link directly to the homepage root `/`.
+
 ## [2.0.0] — 2026-07-17
 
 Full rebuild on Next.js App Router with a local-first, blueprint design system.

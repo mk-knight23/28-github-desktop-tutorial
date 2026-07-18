@@ -12,33 +12,14 @@ import {
   CircleHelp,
   ArrowRight,
 } from "lucide-react";
-import { GraphCanvas } from "@/components/simulator/graph-canvas";
 import { CommandLine, TerminalPanel } from "@/components/ui/terminal-panel";
 import { JsonLd } from "@/components/seo/json-ld";
 import { webApplicationLd } from "@/lib/jsonld";
-import { applyCommand, initialState, type GitState } from "@/lib/git-engine";
+import { SimulatorWorkspace } from "@/components/simulator/simulator-workspace";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
-
-/** Seed a small branch-and-merge graph for the hero teaser (pure, deterministic). */
-function demoState(): GitState {
-  const script = [
-    'commit "init project"',
-    'commit "add readme"',
-    "checkout -b feature/login",
-    'commit "build login form"',
-    'commit "wire up auth"',
-    "checkout main",
-    "merge feature/login",
-  ];
-  let state = initialState();
-  for (const cmd of script) {
-    state = applyCommand(state, cmd).state;
-  }
-  return state;
-}
 
 interface FeatureCard {
   href: string;
@@ -122,49 +103,36 @@ const IS_NOT: string[] = [
 ];
 
 export default function Home() {
-  const state = demoState();
-
   return (
     <div>
       <JsonLd data={webApplicationLd()} />
-      {/* Hero */}
-      <section className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:py-24">
-        <div>
-          <p className="schematic-label text-accent">MK GITFLOW · GIT, MADE VISIBLE</p>
-          <h1 className="display-heading mt-4 text-fg" style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", lineHeight: 1.0 }}>
-            Mastering the distributed pipeline
-          </h1>
-          <p className="mt-6 max-w-prose text-lg leading-relaxed text-fg-secondary">
-            Learn Git by watching what every command does to the commit graph — before you
-            run it for real. Simulate branches, merges, rebases and resets, then back it up
-            with tutorials and a risk-graded reference.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/tool"
-              className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-accent px-5 font-medium text-accent-contrast transition-colors duration-(--motion-fast) hover:bg-accent-hover"
-            >
-              Open the simulator <ArrowRight size={18} aria-hidden="true" />
-            </Link>
-            <Link
-              href="/tutorials"
-              className="inline-flex min-h-11 items-center gap-2 rounded-sm border border-border-strong bg-surface px-5 font-medium text-fg transition-colors duration-(--motion-fast) hover:bg-surface-raised"
-            >
-              Browse tutorials
-            </Link>
-          </div>
-        </div>
 
-        <div className="min-w-0">
-          <p className="schematic-label mb-2 text-fg-muted">LIVE_TEASER · SEEDED GRAPH</p>
-          <GraphCanvas state={state} />
-        </div>
+      {/* Hero */}
+      <section className="mx-auto max-w-5xl px-4 pb-12 pt-16 sm:px-6 lg:pt-20 text-center flex flex-col items-center">
+        <p className="schematic-label text-accent font-bold text-xs tracking-wider">
+          MK GITFLOW · GIT, MADE VISIBLE
+        </p>
+        <h1 className="display-heading mt-4 text-fg text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-balance leading-tight">
+          Mastering the distributed pipeline
+        </h1>
+        <p className="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-fg-secondary">
+          Learn Git by watching what every command does to the commit graph — before you
+          run it for real. Simulate branches, merges, rebases and resets in our 100% offline workbench.
+        </p>
       </section>
+
+      {/* Embedded interactive Simulator */}
+      <div id="workbench" className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+        <SimulatorWorkspace />
+      </div>
 
       {/* Feature grid */}
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6">
-        <h2 className="display-heading text-2xl text-fg sm:text-3xl">The toolkit</h2>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <h2 className="display-heading text-2xl text-fg sm:text-3xl text-center mb-2">The toolkit</h2>
+        <p className="text-center text-fg-secondary mb-10 max-w-md mx-auto">
+          Explore all helper nodes designed to build confidence with version control.
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {FEATURES.map((f) => {
             const Icon = f.icon;
             return (
