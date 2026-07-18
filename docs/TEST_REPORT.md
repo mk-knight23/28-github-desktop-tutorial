@@ -112,8 +112,8 @@ $ pnpm audit --prod
 
 **Assessment:** transitive, pinned by Next.js, and build-time only (PostCSS CSS
 stringify). The app does not process untrusted CSS at runtime, so it is not exploitable
-here. Non-blocking; CI reports it without failing (STANDARDS §12). Resolves when Next
-bumps its bundled PostCSS. A gitleaks secret scan runs in CI on every push/PR.
+here. Non-blocking; surface it with `pnpm audit --prod` before shipping. Resolves when
+Next bumps its bundled PostCSS.
 
 ## 7. Reproduce
 

@@ -62,15 +62,17 @@ custom domain.
 
 ## 7. Pre-deploy checklist
 
-Run locally (or rely on CI, which runs all of these):
+Run locally before promoting a deploy:
 
 ```bash
 pnpm typecheck && pnpm lint && pnpm test && pnpm build
 pnpm exec playwright test    # after a build; serves on port 3105
 ```
 
-CI (`.github/workflows/ci.yml`) additionally runs a gitleaks secret scan and a
-`pnpm audit --prod` report.
+GitHub Actions CI has been retired, so run these checks locally. Vercel still
+runs `pnpm build` on every push and will not promote a broken build. Add a
+dependency report (`pnpm audit --prod`) and a secret scan to your local
+pre-ship routine.
 
 ## 8. Post-deploy verification (orchestrator)
 
