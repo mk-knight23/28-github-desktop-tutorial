@@ -215,8 +215,6 @@ MK GitFlow deploys as a standard Next.js app. **Vercel** is the recommended plat
 - The optional AI routes run as serverless functions with zero setup, and the AI Gateway authenticates automatically via an injected OIDC token (no key to manage in production).
 - Every push gets a preview deployment, and production promotes an immutable build you can roll back instantly.
 
-Netlify and Cloudflare Pages can also run Next.js and are viable alternatives, but Vercel is the path documented and used for this project.
-
 ### Deploy it
 
 1. **Fork or clone** this repository.
